@@ -1,0 +1,5 @@
+# PHP
+/vendor/
+
+# NodeJS
+/node_modules/

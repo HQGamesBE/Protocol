@@ -1,0 +1,18 @@
+{
+  "name": "protocol",
+  "version": "1.0.0",
+  "description": "Protocol for cloud system and Bridge by @xxAROX",
+  "main": "src/javascript/Packets.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HQGamesBE/Protocol.git"
+  },
+  "author": "xxAROX",
+  "bugs": {
+    "url": "https://github.com/HQGamesBE/Protocol/issues"
+  },
+  "homepage": "https://github.com/HQGamesBE/Protocol#readme",
+  "dependencies": {
+    "jsbinaryutils": "^1.0.9"
+  }
+}
