@@ -12,7 +12,7 @@ use HQGames\Bridge\Bridge;
 use HQGames\Bridge\utils\BackendProperties;
 use HQGames\event\packet\CloudPacketResponseEvent;
 use HQGames\network\protocol\types\HandshakeData;
-use HQGames\network\types\CloudPacket;
+use HQGames\network\CloudPacket;
 use pocketmine\scheduler\ClosureTask;
 use pocketmine\scheduler\Task;
 use pocketmine\thread\Thread;
@@ -67,14 +67,18 @@ class CloudConnection extends Thread{
 		$handler = new PacketHandlerManager($this);
 
 		Bridge::getInstance()->getScheduler()->scheduleRepeatingTask(new ClosureTask(function() use ($handler): void{
-			if ($this->state === self::STATE_CONNECTED){
-				if (!is_null($out = $this->output->shift())) {
-					($ev = new CloudPacketResponseEvent($this, json_decode($out, true)))->call();
-					if (!$ev->isCancelled()) {
-						$handler->handle($ev->data);
-					}
-				}
+			if ($this->state === self::STATE_CONNECTED) return;
+			if (is_null($out = $this->output->shift())) return;
+			($ev = new CloudPacketResponseEvent($this, json_decode($out, true)))->call();
+			if ($ev->isCancelled()) return;
+			if (!isset($data["type"])) return;
+			try {
+				$packet = PacketPool::getInstance()->getPacket($data["type"]);
+			} catch (Exception $e) {
+				$this->getLogger()->error("Unknown packet type: " . $data["type"]);
+				return;
 			}
+			PacketHandlerManager::getInstance()->handlePacket($packet);
 		}), 1);
 	}
 

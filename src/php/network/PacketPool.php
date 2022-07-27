@@ -7,8 +7,11 @@
 
 declare(strict_types=1);
 namespace HQGames\network;
+use HQGames\network\protocol\ConnectedPacket;
 use HQGames\network\protocol\ConnectPacket;
-use HQGames\network\types\CloudPacket;
+use HQGames\network\protocol\DisconnectPacket;
+use HQGames\network\protocol\ErrorPacket;
+use HQGames\network\protocol\UnknownPacket;
 use InvalidArgumentException;
 use pocketmine\utils\SingletonTrait;
 
@@ -29,7 +32,11 @@ class PacketPool{
 	private array $packets = [];
 
 	private function __construct(){
+		$this->registerPacket(new UnknownPacket);
+		$this->registerPacket(new ErrorPacket);
 		$this->registerPacket(new ConnectPacket);
+		$this->registerPacket(new ConnectedPacket);
+		$this->registerPacket(new DisconnectPacket);
 	}
 
 	/**

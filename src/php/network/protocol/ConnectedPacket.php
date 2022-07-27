@@ -22,19 +22,22 @@ use JetBrains\PhpStorm\Pure;
 class ConnectedPacket extends CloudPacket{
 	public string $secret;
 	/** @var Language[] */
-	public array $language;
+	public array $languages;
+	public array $players;
 
 	/**
 	 * @generate-build-method
 	 * Function build
 	 * @var string $secret
-	 * @var array $language
+	 * @var array $languages
+	 * @var array $players
 	 * @return ConnectedPacket
 	 */
-	#[Pure] public static function build(string $secret, array $language): ConnectedPacket{
+	#[Pure] public static function build(string $secret, array $languages, array $players): ConnectedPacket{
 		$result = new self;
 		$result->secret = $secret;
-		$result->language = $language;
+		$result->languages = $languages;
+		$result->players = $players;
 		return $result;
 	}
 

@@ -15,14 +15,21 @@
         {
             "type": "vcs",
             "url":  "git@github.com:HQGamesBE/Language-Manager.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github.com:HQGamesBE/Report-Manager.git"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "ext-sockets": "*",
         "ext-mbstring": "*",
         "ext-pthreads": "*"
     },
     "require-dev": {
-        "pocketmine/pocketmine-mp": "^4.6"
+        "pocketmine/pocketmine-mp": "^4.6",
+        "hqgames/language-manager": "*",
+        "hqgames/report-manager": "*"
     }
 }
